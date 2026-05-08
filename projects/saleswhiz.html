@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SalesWhiz — Tanay Anand</title>
+  <link rel="stylesheet" href="../style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <style>
+    .case-hero { padding: 6rem 0 3rem; }
+    .case-hero h1 { font-size: 2.4rem; margin-bottom: 0.5rem; }
+    .case-meta { color: var(--text-secondary); margin-bottom: 1.5rem; font-size: 0.95rem; }
+    .metrics-row { display: flex; gap: 2rem; flex-wrap: wrap; margin: 2rem 0; }
+    .metric-card { background: var(--bg-surface); border: 1px solid var(--border-color); border-radius: 8px; padding: 1.2rem 1.8rem; min-width: 140px; }
+    .metric-card .value { font-size: 1.8rem; font-weight: 700; color: var(--accent-blue); }
+    .metric-card .label { font-size: 0.8rem; color: var(--text-secondary); margin-top: 0.2rem; }
+    .metric-card .tag { font-size: 0.7rem; color: var(--text-secondary); font-style: italic; }
+    .case-section { padding: 2.5rem 0; border-top: 1px solid var(--border-color); }
+    .case-section h2 { font-size: 1.4rem; margin-bottom: 1rem; }
+    .case-section h3 { font-size: 1.1rem; margin: 1.5rem 0 0.5rem; color: var(--accent-blue); }
+    .lld-item { margin-bottom: 1rem; padding-left: 1rem; border-left: 2px solid var(--accent-blue); }
+    .results-table { width: 100%; border-collapse: collapse; margin-top: 1rem; }
+    .results-table th, .results-table td { padding: 0.7rem 1rem; border: 1px solid var(--border-color); font-size: 0.9rem; text-align: left; }
+    .results-table th { background: var(--bg-surface); }
+    .measured { color: var(--accent-blue); font-weight: 600; }
+    .estimated { color: var(--text-secondary); }
+    .back-link { display: inline-block; margin: 2rem 0 0; color: var(--accent-blue); text-decoration: none; font-size: 0.9rem; }
+    .back-link:hover { text-decoration: underline; }
+    .tech-chips { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1rem; }
+    body { background-color: var(--bg-color); color: var(--text-primary); }
+  </style>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="nav-container">
+      <a href="../index.html" class="nav-logo">Tanay Anand</a>
+      <a href="../index.html#projects" class="back-link">← Back to Projects</a>
+    </div>
+  </nav>
+
+  <main class="container" style="max-width: 860px; padding-top: 2rem;">
+
+    <section class="case-hero">
+      <p class="case-meta">R Systems International · August 2024 – Present · Production</p>
+      <h1>SalesWhiz</h1>
+      <p style="font-size:1.1rem; color: var(--text-secondary); margin-bottom: 1.5rem;">
+        Multiagent RAG for Enterprise Big Data — production-grade document intelligence over
+        large-scale enterprise corpora with RL-informed intent routing.
+      </p>
+
+      <div class="metrics-row">
+        <div class="metric-card">
+          <div class="value">~35%</div>
+          <div class="label">Retrieval precision improvement</div>
+          <div class="tag">Estimated</div>
+        </div>
+        <div class="metric-card">
+          <div class="value">~45%</div>
+          <div class="label">Reduction in redundant interactions</div>
+          <div class="tag">Estimated</div>
+        </div>
+        <div class="metric-card">
+          <div class="value">3</div>
+          <div class="label">Critical CVEs surfaced pre-deployment</div>
+          <div class="tag">Measured</div>
+        </div>
+        <div class="metric-card">
+          <div class="value">150+</div>
+          <div class="label">Test cases across 13 files</div>
+          <div class="tag">Measured</div>
+        </div>
+        <div class="metric-card">
+          <div class="value">1,800+</div>
+          <div class="label">Lines of production code</div>
+          <div class="tag">Measured</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="case-section">
+      <h2>Problem</h2>
+      <p>Enterprise presales teams operate over heterogeneous document corpora — PDFs, PPTs, DOCX, Excel — where queries span multiple document types and intents. Standard RAG retrieves indiscriminately: a pricing question gets the same retrieval path as a technical spec question, degrading precision. At 8K token context limits, irrelevant retrievals crowd out relevant ones. The problem: build a RAG system that routes by intent, expands queries systematically, and stays within token budgets without sacrificing coverage.</p>
+    </section>
+
+    <section class="case-section">
+      <h2>Architecture</h2>
+      <p>Four-layer system. The <strong>ingestion layer</strong> handles PDF/PPT/DOCX/Excel parsing with format-aware chunking. The <strong>query layer</strong> applies four-strategy expansion (synonym, decomposition, hypothetical document, step-back) before retrieval. The <strong>routing layer</strong> uses a seven-category intent classifier to select document-type preference weights — a pricing query preferentially retrieves from Excel and structured docs; a technical query from PDFs and DOCX. The <strong>context layer</strong> enforces token-aware windowing at the 8K limit, ranking and truncating chunks by relevance score before assembly.</p>
+    </section>
+
+    <section class="case-section">
+      <h2>Implementation — Key Components</h2>
+
+      <div class="lld-item">
+        <h3>Seven-Category Intent Classifier</h3>
+        <p>Fine-tuned classifier mapping query intent to document-type preference weights. Categories cover: pricing, technical specification, compliance, competitive, timeline, personnel, general. Preference weights shift retrieval scoring rather than hard-filtering — all document types remain accessible.</p>
+      </div>
+
+      <div class="lld-item">
+        <h3>Four-Strategy Query Expansion</h3>
+        <p>Parallel expansion generating synonym variants, decomposed sub-questions, hypothetical answer documents (HyDE), and step-back abstractions. All four variants are retrieved against; results are merged and deduplicated by embedding similarity before ranking.</p>
+      </div>
+
+      <div class="lld-item">
+        <h3>Token-Aware Context Windowing</h3>
+        <p>Chunk ranker that scores retrieved segments by relevance, then greedily fills the 8K context window. Stops before overflow rather than truncating mid-chunk, preserving coherence.</p>
+      </div>
+
+      <div class="lld-item">
+        <h3>Security-First Test Suite</h3>
+        <p>150+ test cases across 13 files covering adversarial queries, injection attempts, and privilege-escalation patterns. Surfaced 3 critical CVEs pre-deployment with zero breaking changes to the live system.</p>
+      </div>
+    </section>
+
+    <section class="case-section">
+      <h2>Results</h2>
+      <table class="results-table">
+        <thead>
+          <tr><th>Metric</th><th>Baseline</th><th>SalesWhiz</th><th>Type</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Retrieval precision improvement</td><td>N/A</td><td class="estimated">~35% lift</td><td>Estimated</td></tr>
+          <tr><td>Redundant user interactions</td><td>N/A</td><td class="estimated">~45% reduction</td><td>Estimated</td></tr>
+          <tr><td>Critical CVEs caught pre-deployment</td><td>0 (no testing)</td><td class="measured">3</td><td>Measured</td></tr>
+          <tr><td>Test coverage</td><td>0</td><td class="measured">150+ cases, 13 files</td><td>Measured</td></tr>
+          <tr><td>Code shipped</td><td>—</td><td class="measured">1,800+ LOC</td><td>Measured</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="case-section">
+      <h2>Tech Stack</h2>
+      <div class="tech-chips">
+        <span class="skill-tag">Python</span>
+        <span class="skill-tag">LangChain</span>
+        <span class="skill-tag">OpenAI APIs</span>
+        <span class="skill-tag">FastAPI</span>
+        <span class="skill-tag">FAISS</span>
+        <span class="skill-tag">Docker</span>
+        <span class="skill-tag">PyTorch</span>
+        <span class="skill-tag">Token-Aware Retrieval</span>
+        <span class="skill-tag">Intent Classification</span>
+        <span class="skill-tag">Query Expansion</span>
+      </div>
+    </section>
+
+    <a href="../index.html#projects" class="back-link">← Back to Projects</a>
+
+  </main>
+</body>
+</html>

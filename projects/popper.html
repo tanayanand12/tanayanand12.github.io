@@ -11,22 +11,23 @@
     .case-hero h1 { font-size: 2.4rem; margin-bottom: 0.5rem; }
     .case-meta { color: var(--text-secondary); margin-bottom: 1.5rem; font-size: 0.95rem; }
     .metrics-row { display: flex; gap: 2rem; flex-wrap: wrap; margin: 2rem 0; }
-    .metric-card { background: var(--bg-secondary); border: 1px solid var(--border); border-radius: 8px; padding: 1.2rem 1.8rem; min-width: 140px; }
-    .metric-card .value { font-size: 1.8rem; font-weight: 700; color: var(--accent); }
+    .metric-card { background: var(--bg-surface); border: 1px solid var(--border-color); border-radius: 8px; padding: 1.2rem 1.8rem; min-width: 140px; }
+    .metric-card .value { font-size: 1.8rem; font-weight: 700; color: var(--accent-blue); }
     .metric-card .label { font-size: 0.8rem; color: var(--text-secondary); margin-top: 0.2rem; }
     .metric-card .tag { font-size: 0.7rem; color: var(--text-secondary); font-style: italic; }
-    .case-section { padding: 2.5rem 0; border-top: 1px solid var(--border); }
+    .case-section { padding: 2.5rem 0; border-top: 1px solid var(--border-color); }
     .case-section h2 { font-size: 1.4rem; margin-bottom: 1rem; }
-    .case-section h3 { font-size: 1.1rem; margin: 1.5rem 0 0.5rem; color: var(--accent); }
-    .lld-item { margin-bottom: 1rem; padding-left: 1rem; border-left: 2px solid var(--accent); }
+    .case-section h3 { font-size: 1.1rem; margin: 1.5rem 0 0.5rem; color: var(--accent-blue); }
+    .lld-item { margin-bottom: 1rem; padding-left: 1rem; border-left: 2px solid var(--accent-blue); }
     .results-table { width: 100%; border-collapse: collapse; margin-top: 1rem; }
-    .results-table th, .results-table td { padding: 0.7rem 1rem; border: 1px solid var(--border); font-size: 0.9rem; text-align: left; }
-    .results-table th { background: var(--bg-secondary); }
-    .measured { color: var(--accent); font-weight: 600; }
+    .results-table th, .results-table td { padding: 0.7rem 1rem; border: 1px solid var(--border-color); font-size: 0.9rem; text-align: left; }
+    .results-table th { background: var(--bg-surface); }
+    .measured { color: var(--accent-blue); font-weight: 600; }
     .estimated { color: var(--text-secondary); }
-    .back-link { display: inline-block; margin: 2rem 0 0; color: var(--accent); text-decoration: none; font-size: 0.9rem; }
+    .back-link { display: inline-block; margin: 2rem 0 0; color: var(--accent-blue); text-decoration: none; font-size: 0.9rem; }
     .back-link:hover { text-decoration: underline; }
     .tech-chips { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1rem; }
+    body { background-color: var(--bg-color); color: var(--text-primary); }
   </style>
 </head>
 <body>
@@ -37,7 +38,7 @@
     </div>
   </nav>
 
-  <main class="container" style="max-width: 860px; padding-top: 2rem;">
+  <main class="container" style="max-width: 860px; padding-top: 2rem; margin: 0 auto; padding-left: 1.5rem; padding-right: 1.5rem;">
 
     <section class="case-hero">
       <p class="case-meta">R Systems International · May 2025 – Present · Production</p>
@@ -51,22 +52,22 @@
         <div class="metric-card">
           <div class="value">95.48%</div>
           <div class="label">Entity extraction accuracy</div>
-          <div class="tag">Measured</div>
+          <span style="font-size:0.7rem; color:var(--text-secondary); font-style:italic; display:block; margin-top:0.3rem;">Measured</span>
         </div>
         <div class="metric-card">
           <div class="value">66%</div>
           <div class="label">API cost reduction</div>
-          <div class="tag">Measured · vs frontier baseline</div>
+          <span style="font-size:0.7rem; color:var(--text-secondary); font-style:italic; display:block; margin-top:0.3rem;">Measured · vs frontier baseline</span>
         </div>
         <div class="metric-card">
           <div class="value">~200</div>
           <div class="label">Episodes to convergence</div>
-          <div class="tag">Measured</div>
+          <span style="font-size:0.7rem; color:var(--text-secondary); font-style:italic; display:block; margin-top:0.3rem;">Measured</span>
         </div>
         <div class="metric-card">
           <div class="value">12+</div>
           <div class="label">Entity types covered</div>
-          <div class="tag">Measured</div>
+          <span style="font-size:0.7rem; color:var(--text-secondary); font-style:italic; display:block; margin-top:0.3rem;">Measured</span>
         </div>
       </div>
     </section>
