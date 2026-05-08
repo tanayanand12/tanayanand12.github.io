@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>POPPER — Tanay Anand</title>
+  <link rel="stylesheet" href="../style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <style>
+    .case-hero { padding: 6rem 0 3rem; }
+    .case-hero h1 { font-size: 2.4rem; margin-bottom: 0.5rem; }
+    .case-meta { color: var(--text-secondary); margin-bottom: 1.5rem; font-size: 0.95rem; }
+    .metrics-row { display: flex; gap: 2rem; flex-wrap: wrap; margin: 2rem 0; }
+    .metric-card { background: var(--bg-secondary); border: 1px solid var(--border); border-radius: 8px; padding: 1.2rem 1.8rem; min-width: 140px; }
+    .metric-card .value { font-size: 1.8rem; font-weight: 700; color: var(--accent); }
+    .metric-card .label { font-size: 0.8rem; color: var(--text-secondary); margin-top: 0.2rem; }
+    .metric-card .tag { font-size: 0.7rem; color: var(--text-secondary); font-style: italic; }
+    .case-section { padding: 2.5rem 0; border-top: 1px solid var(--border); }
+    .case-section h2 { font-size: 1.4rem; margin-bottom: 1rem; }
+    .case-section h3 { font-size: 1.1rem; margin: 1.5rem 0 0.5rem; color: var(--accent); }
+    .lld-item { margin-bottom: 1rem; padding-left: 1rem; border-left: 2px solid var(--accent); }
+    .results-table { width: 100%; border-collapse: collapse; margin-top: 1rem; }
+    .results-table th, .results-table td { padding: 0.7rem 1rem; border: 1px solid var(--border); font-size: 0.9rem; text-align: left; }
+    .results-table th { background: var(--bg-secondary); }
+    .measured { color: var(--accent); font-weight: 600; }
+    .estimated { color: var(--text-secondary); }
+    .back-link { display: inline-block; margin: 2rem 0 0; color: var(--accent); text-decoration: none; font-size: 0.9rem; }
+    .back-link:hover { text-decoration: underline; }
+    .tech-chips { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1rem; }
+  </style>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="nav-container">
+      <a href="../index.html" class="nav-logo">Tanay Anand</a>
+      <a href="../index.html#projects" class="back-link">← Back to Projects</a>
+    </div>
+  </nav>
+
+  <main class="container" style="max-width: 860px; padding-top: 2rem;">
+
+    <section class="case-hero">
+      <p class="case-meta">R Systems International · May 2025 – Present · Production</p>
+      <h1>POPPER</h1>
+      <p style="font-size:1.1rem; color: var(--text-secondary); margin-bottom: 1.5rem;">
+        Applied RL for ML Workflow Optimization — assertion-validated multi-model entity extraction
+        with cost-vs-accuracy routing via multi-armed bandits.
+      </p>
+
+      <div class="metrics-row">
+        <div class="metric-card">
+          <div class="value">95.48%</div>
+          <div class="label">Entity extraction accuracy</div>
+          <div class="tag">Measured</div>
+        </div>
+        <div class="metric-card">
+          <div class="value">66%</div>
+          <div class="label">API cost reduction</div>
+          <div class="tag">Measured · vs frontier baseline</div>
+        </div>
+        <div class="metric-card">
+          <div class="value">~200</div>
+          <div class="label">Episodes to convergence</div>
+          <div class="tag">Measured</div>
+        </div>
+        <div class="metric-card">
+          <div class="value">12+</div>
+          <div class="label">Entity types covered</div>
+          <div class="tag">Measured</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="case-section">
+      <h2>Problem</h2>
+      <p>Utility document intelligence requires extracting 12+ entity types (meter IDs, service addresses, tariff codes, billing periods, consumption figures) from structurally inconsistent PDFs at scale. Routing every document to a frontier model (GPT-4-class) achieves high accuracy but at prohibitive cost. Routing to cheaper models reduces cost but introduces silent extraction failures — errors that pass without surfacing. The challenge: build a routing system that learns cost-vs-accuracy trade-offs dynamically and fails loudly rather than silently.</p>
+    </section>
+
+    <section class="case-section">
+      <h2>Architecture</h2>
+      <p>POPPER is a three-layer system. The <strong>extraction layer</strong> runs a model pool — lightweight models (low cost, lower accuracy) and frontier models (high cost, high accuracy) — against each document in parallel up to a configurable depth. The <strong>assertion layer</strong> applies deterministic post-extraction checks (type validation, cross-field consistency, format constraints) to every extraction result; failure is explicit and structured. The <strong>routing layer</strong> is a multi-armed bandit RL policy that observes assertion outcomes and updates model-selection weights per entity type, converging on the cheapest model that clears assertions reliably.</p>
+      <p style="margin-top:0.8rem;">Frontier escalation is triggered only on deterministic assertion failure — not on confidence thresholds, which are soft and gameable. This is the core design decision that makes the cost reduction defensible.</p>
+    </section>
+
+    <section class="case-section">
+      <h2>Implementation — Key Components</h2>
+
+      <div class="lld-item">
+        <h3>Multi-Armed Bandit Router</h3>
+        <p>UCB1-variant bandit with per-entity-type arm weights. Reward signal is binary: assertion pass = positive reward, assertion fail = zero reward with frontier escalation triggered. Policy converged within ~200 episodes across the production document corpus.</p>
+      </div>
+
+      <div class="lld-item">
+        <h3>Deterministic Assertion Engine</h3>
+        <p>Rule-based post-extraction validator covering: type constraints (numeric ranges, date formats, regex patterns), cross-field consistency (billing period ↔ consumption figure coherence), and completeness checks (required entity presence per document class). Assertion failure is structured — fails with entity ID and constraint violated, not a generic error.</p>
+      </div>
+
+      <div class="lld-item">
+        <h3>Model Pool Abstraction</h3>
+        <p>Unified extraction interface over heterogeneous model backends — local quantised models, mid-tier API models, and frontier API models — with consistent output schema enforced at the interface boundary. Adding a new model to the pool requires implementing one method; no changes to the bandit or assertion layers.</p>
+      </div>
+
+      <div class="lld-item">
+        <h3>IIT Delhi Research Collaboration</h3>
+        <p>Invited to the IIT Delhi Winter Research Residency (Dec 2025) by Prof. Abhilash Jindal's CSE group — the academic authors of the POPPER dataflow system. Studied the internal bandit-based query optimizer architecture; participated in research discussions on extending POPPER to handle data drift and LLM-based pipeline scenarios.</p>
+      </div>
+    </section>
+
+    <section class="case-section">
+      <h2>Results</h2>
+      <table class="results-table">
+        <thead>
+          <tr><th>Metric</th><th>Baseline (frontier-only)</th><th>POPPER</th><th>Type</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Entity extraction accuracy</td><td>~96%</td><td class="measured">95.48%</td><td>Measured</td></tr>
+          <tr><td>API cost per document</td><td>1×</td><td class="measured">0.34× (66% reduction)</td><td>Measured</td></tr>
+          <tr><td>Silent failure rate</td><td>Non-zero (soft threshold)</td><td class="measured">0 (assertion-gated)</td><td>Measured</td></tr>
+          <tr><td>Policy convergence</td><td>N/A</td><td class="measured">~200 episodes</td><td>Measured</td></tr>
+          <tr><td>Entity types covered</td><td>12+</td><td class="measured">12+</td><td>Measured</td></tr>
+        </tbody>
+      </table>
+      <p style="margin-top:0.8rem; font-size:0.85rem; color:var(--text-secondary);">Accuracy is marginally below the frontier-only baseline by design — the assertion engine accepts this trade-off because failures are now explicit and recoverable rather than silent.</p>
+    </section>
+
+    <section class="case-section">
+      <h2>Tech Stack</h2>
+      <div class="tech-chips">
+        <span class="skill-tag">Python</span>
+        <span class="skill-tag">Reinforcement Learning</span>
+        <span class="skill-tag">Multi-Armed Bandits</span>
+        <span class="skill-tag">LLM Pipelines</span>
+        <span class="skill-tag">Dataflow Systems</span>
+        <span class="skill-tag">FastAPI</span>
+        <span class="skill-tag">OpenAI APIs</span>
+      </div>
+    </section>
+
+    <a href="../index.html#projects" class="back-link">← Back to Projects</a>
+
+  </main>
+</body>
+</html>
