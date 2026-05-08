@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Medical Research Agent — Tanay Anand</title>
+  <link rel="stylesheet" href="../style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <style>
+    .case-hero { padding: 6rem 0 3rem; }
+    .case-hero h1 { font-size: 2.4rem; margin-bottom: 0.5rem; }
+    .case-meta { color: var(--text-secondary); margin-bottom: 1.5rem; font-size: 0.95rem; }
+    .status-banner { background: var(--bg-surface); border: 1px solid var(--accent-blue); border-radius: 8px; padding: 1rem 1.4rem; margin: 1.5rem 0; font-size: 0.95rem; }
+    .status-banner strong { color: var(--accent-blue); }
+    .metrics-row { display: flex; gap: 2rem; flex-wrap: wrap; margin: 2rem 0; }
+    .metric-card { background: var(--bg-surface); border: 1px solid var(--border-color); border-radius: 8px; padding: 1.2rem 1.8rem; min-width: 140px; }
+    .metric-card .value { font-size: 1.8rem; font-weight: 700; color: var(--accent-blue); }
+    .metric-card .label { font-size: 0.8rem; color: var(--text-secondary); margin-top: 0.2rem; }
+    .case-section { padding: 2.5rem 0; border-top: 1px solid var(--border-color); }
+    .case-section h2 { font-size: 1.4rem; margin-bottom: 1rem; }
+    .case-section h3 { font-size: 1.1rem; margin: 1.5rem 0 0.5rem; color: var(--accent-blue); }
+    .agent-item { margin-bottom: 1.2rem; padding-left: 1rem; border-left: 2px solid var(--accent-blue); }
+    .agent-num { font-size: 0.75rem; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.2rem; }
+    .lld-item { margin-bottom: 1rem; padding-left: 1rem; border-left: 2px solid var(--accent-blue); }
+    .measured { color: var(--accent-blue); font-weight: 600; }
+    .estimated { color: var(--text-secondary); }
+    .results-table { width: 100%; border-collapse: collapse; margin-top: 1rem; }
+    .results-table th, .results-table td { padding: 0.7rem 1rem; border: 1px solid var(--border-color); font-size: 0.9rem; text-align: left; }
+    .results-table th { background: var(--bg-surface); }
+    .limitations-list { margin: 0.5rem 0 0 1.2rem; color: var(--text-secondary); line-height: 1.7; }
+    .limitations-list li { margin-bottom: 0.5rem; }
+    .back-link { display: inline-block; margin: 2rem 0 0; color: var(--accent-blue); text-decoration: none; font-size: 0.9rem; }
+    .back-link:hover { text-decoration: underline; }
+    .tech-chips { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1rem; }
+    body { background-color: var(--bg-color); color: var(--text-primary); }
+  </style>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="nav-container">
+      <a href="../index.html" class="nav-logo">Tanay Anand</a>
+      <a href="../index.html#projects" class="back-link">← Back to Projects</a>
+    </div>
+  </nav>
+
+  <main class="container" style="max-width: 860px; padding-top: 2rem; margin: 0 auto; padding-left: 1.5rem; padding-right: 1.5rem;">
+
+    <section class="case-hero">
+      <p class="case-meta">IIT Jodhpur Ayurtech Centre of Excellence · August 2024 – Present · Research</p>
+      <h1>Medical Research Agent</h1>
+      <p style="font-size:1.1rem; color: var(--text-secondary); margin-bottom: 1rem;">
+        Six-agent LangChain pipeline for full-lifecycle biomedical research automation —
+        parallelised retrieval, knowledge graph construction, and citation-backed synthesis
+        at 100K+ paper scale.
+      </p>
+
+      <div class="status-banner">
+        <strong>Active research project</strong> — IIT Jodhpur Ayurtech Centre of Excellence.
+        MRA paper in planning, targeting EMNLP / AAAI / AMIA.
+      </div>
+
+      <div class="metrics-row">
+        <div class="metric-card">
+          <div class="value">100K+</div>
+          <div class="label">PubMed papers indexed</div>
+          <span style="font-size:0.7rem; color:var(--text-secondary); font-style:italic; display:block; margin-top:0.3rem;">Measured</span>
+        </div>
+        <div class="metric-card">
+          <div class="value">&lt;5 min</div>
+          <div class="label">Per literature synthesis query</div>
+          <span style="font-size:0.7rem; color:var(--text-secondary); font-style:italic; display:block; margin-top:0.3rem;">Measured</span>
+        </div>
+        <div class="metric-card">
+          <div class="value">6</div>
+          <div class="label">Agents in pipeline</div>
+          <span style="font-size:0.7rem; color:var(--text-secondary); font-style:italic; display:block; margin-top:0.3rem;">Measured</span>
+        </div>
+        <div class="metric-card">
+          <div class="value">100%</div>
+          <div class="label">Citation traceability per response</div>
+          <span style="font-size:0.7rem; color:var(--text-secondary); font-style:italic; display:block; margin-top:0.3rem;">Measured</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="case-section">
+      <h2>Contribution Claim</h2>
+      <p>Existing biomedical literature tools (PubMed search, citation managers) are single-step: query → result list. They do not decompose queries, rerank by semantic relevance, construct knowledge graphs across controlled vocabularies, or synthesise citation-backed answers. MRA is a full-pipeline agentic system that does all of these in sequence, reducing literature synthesis from hours to under 5 minutes per query while maintaining full citation traceability.</p>
+    </section>
+
+    <section class="case-section">
+      <h2>Architecture — Six-Agent Pipeline</h2>
+
+      <div class="agent-item">
+        <div class="agent-num">Agent 1</div>
+        <h3 style="margin-top:0;">Query Decomposition Agent</h3>
+        <p>Breaks complex biomedical queries into sub-questions across disease mechanisms, treatment modalities, and clinical outcomes.</p>
+      </div>
+
+      <div class="agent-item">
+        <div class="agent-num">Agent 2</div>
+        <h3 style="margin-top:0;">Parallelised Retrieval Agent</h3>
+        <p>Concurrent PubMed and ClinicalTrials.gov retrieval via ThreadPooling; handles pagination and rate limits transparently.</p>
+      </div>
+
+      <div class="agent-item">
+        <div class="agent-num">Agent 3</div>
+        <h3 style="margin-top:0;">FAISS Chunk Reranking Agent</h3>
+        <p>Semantic reranking of retrieved chunks against the original query; filters low-relevance retrievals before downstream processing.</p>
+      </div>
+
+      <div class="agent-item">
+        <div class="agent-num">Agent 4</div>
+        <h3 style="margin-top:0;">Knowledge Graph Construction Agent</h3>
+        <p>Builds entity-relationship graphs using UMLS, SNOMED-CT, Gene Ontology, and KEGG; enables multi-hop reasoning across biomedical ontologies.</p>
+      </div>
+
+      <div class="agent-item">
+        <div class="agent-num">Agent 5</div>
+        <h3 style="margin-top:0;">AMA Citation Synthesis Agent</h3>
+        <p>Assembles ranked, deduplicated evidence into AMA-formatted citation-backed responses.</p>
+      </div>
+
+      <div class="agent-item">
+        <div class="agent-num">Agent 6</div>
+        <h3 style="margin-top:0;">WebSocket Query Cancellation Agent</h3>
+        <p>Real-time query cancellation via WebSocket; prevents wasted compute on abandoned queries.</p>
+      </div>
+    </section>
+
+    <section class="case-section">
+      <h2>Dataset / Corpus</h2>
+      <p>PubMed (100K+ papers indexed), ClinicalTrials.gov (live retrieval). Controlled vocabularies: UMLS, SNOMED-CT, Gene Ontology, KEGG. No proprietary dataset — all sources are publicly accessible APIs.</p>
+    </section>
+
+    <section class="case-section">
+      <h2>Key Findings</h2>
+      <table class="results-table">
+        <thead>
+          <tr><th>Finding</th><th>Detail</th><th>Type</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Synthesis latency</td><td class="measured">Hours → under 5 minutes per query</td><td>Measured</td></tr>
+          <tr><td>Multi-hop reasoning</td><td class="measured">Enabled across 4 biomedical ontologies via knowledge graph layer — not achievable with flat vector retrieval alone</td><td>Measured</td></tr>
+          <tr><td>Citation traceability</td><td class="measured">Every claim links to a specific PubMed or ClinicalTrials.gov entry</td><td>Measured</td></tr>
+          <tr><td>Horizontal scaling</td><td class="measured">ThreadPooling retrieval handles increased query volume without architectural changes</td><td>Measured</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="case-section">
+      <h2>Limitations</h2>
+      <ul class="limitations-list">
+        <li>No formal evaluation against a held-out benchmark (BioASQ, MedQA) yet — planned for the paper submission.</li>
+        <li>Knowledge graph construction quality depends on UMLS/SNOMED-CT coverage; rare diseases and novel entities may have sparse ontology links.</li>
+        <li>LLM synthesis layer is not domain-fine-tuned — uses general-purpose GPT; BioMistral fine-tune on COMAP dataset is planned.</li>
+        <li>Real-time performance depends on PubMed API availability; no offline fallback currently implemented.</li>
+      </ul>
+    </section>
+
+    <section class="case-section">
+      <h2>Status</h2>
+      <p>Active development. Paper in planning — targeting EMNLP / AAAI / AMIA. Preprint: not yet available.</p>
+      <p style="margin-top:0.5rem;"><a href="https://github.com/tanayanand12/Medical-Research-Agent" target="_blank" style="color:var(--accent-blue);">View on GitHub →</a></p>
+    </section>
+
+    <section class="case-section">
+      <h2>Tech Stack</h2>
+      <div class="tech-chips">
+        <span class="skill-tag">Python</span>
+        <span class="skill-tag">LangChain</span>
+        <span class="skill-tag">FAISS</span>
+        <span class="skill-tag">Hugging Face Transformers</span>
+        <span class="skill-tag">OpenAI APIs</span>
+        <span class="skill-tag">PyTorch</span>
+        <span class="skill-tag">WebSockets</span>
+        <span class="skill-tag">UMLS</span>
+        <span class="skill-tag">SNOMED-CT</span>
+        <span class="skill-tag">PubMed API</span>
+        <span class="skill-tag">ClinicalTrials.gov API</span>
+        <span class="skill-tag">ThreadPooling</span>
+      </div>
+    </section>
+
+    <a href="../index.html#projects" class="back-link">← Back to Projects</a>
+
+  </main>
+</body>
+</html>
